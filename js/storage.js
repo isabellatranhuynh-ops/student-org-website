@@ -209,8 +209,8 @@ const Storage = {
 
     // Authentication
     checkAuth(username, password) {
-        // Default credentials - CHANGE IN PRODUCTION
-        return username === 'admin' && password === 'admin123';
+        // Updated credentials
+        return username === 'IsabellaVITAL7' && password === '18lolisabella';
     },
 
     setSession(username) {
