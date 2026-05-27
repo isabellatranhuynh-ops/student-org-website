@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - VITAL</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="admin-body">
+    <div id="loginPage" class="login-page">
+        <div class="login-container">
+            <h1>VITAL Admin</h1>
+            <form id="loginForm" class="form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <div id="loginMessage" class="message"></div>
+        </div>
+    </div>
+
+    <div id="adminPanel" class="admin-panel" style="display: none;">
+        <nav class="admin-navbar">
+            <div class="admin-header">
+                <h2>VITAL Admin</h2>
+                <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+            </div>
+            <ul class="admin-tabs">
+                <li><button class="tab-btn active" data-tab="content">Content</button></li>
+                <li><button class="tab-btn" data-tab="announcements">Announcements</button></li>
+                <li><button class="tab-btn" data-tab="team">Team</button></li>
+                <li><button class="tab-btn" data-tab="survey">Survey</button></li>
+                <li><button class="tab-btn" data-tab="resources">Resources</button></li>
+                <li><button class="tab-btn" data-tab="applications">Applications</button></li>
+                <li><button class="tab-btn" data-tab="images">Images</button></li>
+            </ul>
+        </nav>
+
+        <div class="admin-content">
+            <!-- CONTENT TAB -->
+            <div id="content-tab" class="tab-content active">
+                <h3>Manage Page Content</h3>
+                
+                <div class="section">
+                    <h4>Hero Section (Homepage)</h4>
+                    <div class="form-group">
+                        <label for="heroTitle">Hero Title</label>
+                        <input type="text" id="heroTitle" placeholder="Welcome to VITAL">
+                    </div>
+                    <div class="form-group">
+                        <label for="heroDescription">Hero Description</label>
+                        <input type="text" id="heroDescription" placeholder="Join us and make a difference!">
+                    </div>
+                    <button class="btn btn-primary" onclick="saveHeroContent()">Save</button>
+                </div>
+
+                <div class="section">
+                    <h4>About Us - Who Are We?</h4>
+                    <div class="form-group">
+                        <label for="aboutContent">Content</label>
+                        <textarea id="aboutContentEdit" rows="6" placeholder="Write about who your organization is..."></textarea>
+                    </div>
+                    <button class="btn btn-primary" onclick="saveAboutContent('about')">Save</button>
+                </div>
+
+                <div class="section">
+                    <h4>About Us - Mission</h4>
+                    <div class="form-group">
+                        <label for="missionContentEdit">Content</label>
+                        <textarea id="missionContentEdit" rows="6" placeholder="Write your organization's mission..."></textarea>
+                    </div>
+                    <button class="btn btn-primary" onclick="saveAboutContent('mission')">Save</button>
+                </div>
+
+                <div class="section">
+                    <h4>About Us - Values</h4>
+                    <div class="form-group">
+                        <label for="valuesContentEdit">Content</label>
+                        <textarea id="valuesContentEdit" rows="6" placeholder="Write your organization's values..."></textarea>
+                    </div>
+                    <button class="btn btn-primary" onclick="saveAboutContent('values')">Save</button>
+                </div>
+            </div>
+
+            <!-- ANNOUNCEMENTS TAB -->
+            <div id="announcements-tab" class="tab-content">
+                <h3>Manage Announcements</h3>
+                
+                <div class="section">
+                    <h4>Create New Announcement</h4>
+                    <div class="form-group">
+                        <label for="announcementTitle">Announcement Title</label>
+                        <input type="text" id="announcementTitle" placeholder="e.g., Meeting Next Week">
+                    </div>
+                    <div class="form-group">
+                        <label for="announcementContent">Announcement Content</label>
+                        <textarea id="announcementContent" rows="6" placeholder="Write your announcement here..."></textarea>
+                    </div>
+                    <button class="btn btn-primary" onclick="addAnnouncement()">Add Announcement</button>
+                </div>
+
+                <div class="section">
+                    <h4>All Announcements</h4>
+                    <div id="announcementsList" class="announcements-list"></div>
+                </div>
+            </div>
+
+            <!-- TEAM TAB -->
+            <div id="team-tab" class="tab-content">
+                <h3>Manage Team Members</h3>
+                
+                <div class="section">
+                    <h4>Add New Team Member</h4>
+                    <div class="form-group">
+                        <label for="teamName">Name</label>
+                        <input type="text" id="teamName" placeholder="Team member name">
+                    </div>
+                    <div class="form-group">
+                        <label for="teamRole">Role</label>
+                        <input type="text" id="teamRole" placeholder="e.g., President">
+                    </div>
+                    <div class="form-group">
+                        <label for="teamRank">Rank</label>
+                        <input type="text" id="teamRank" placeholder="e.g., Executive">
+                    </div>
+                    <div class="form-group">
+                        <label for="teamBio">Bio</label>
+                        <textarea id="teamBio" rows="4" placeholder="Brief bio..."></textarea>
+                    </div>
+                    <button class="btn btn-primary" onclick="addTeamMember()">Add Member</button>
+                </div>
+
+                <div class="section">
+                    <h4>Team Members</h4>
+                    <div id="membersList" class="members-list"></div>
+                </div>
+            </div>
+
+            <!-- SURVEY TAB -->
+            <div id="survey-tab" class="tab-content">
+                <h3>Manage Survey</h3>
+                
+                <div class="section">
+                    <h4>Add Survey Question</h4>
+                    <div class="form-group">
+                        <label for="surveyQuestion">Question</label>
+                        <input type="text" id="surveyQuestion" placeholder="e.g., How did you hear about us?">
+                    </div>
+                    <div class="form-group">
+                        <label for="surveyType">Question Type</label>
+                        <select id="surveyType">
+                            <option value="text">Text</option>
+                            <option value="multiple">Multiple Choice</option>
+                            <option value="rating">Rating</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="addSurveyQuestion()">Add Question</button>
+                </div>
+
+                <div class="section">
+                    <h4>Survey Questions</h4>
+                    <div id="surveyList" class="survey-list"></div>
+                </div>
+
+                <div class="section">
+                    <h4>Survey Responses</h4>
+                    <div id="responsesList" class="responses-list"></div>
+                </div>
+            </div>
+
+            <!-- RESOURCES TAB -->
+            <div id="resources-tab" class="tab-content">
+                <h3>Manage Resources</h3>
+                
+                <div class="section">
+                    <h4>Add New Resource</h4>
+                    <div class="form-group">
+                        <label for="resourceTitle">Resource Title</label>
+                        <input type="text" id="resourceTitle" placeholder="e.g., Meeting Notes">
+                    </div>
+                    <div class="form-group">
+                        <label for="resourceLink">Resource Link</label>
+                        <input type="url" id="resourceLink" placeholder="https://...">
+                    </div>
+                    <div class="form-group">
+                        <label for="resourceDescription">Description</label>
+                        <textarea id="resourceDescription" rows="4" placeholder="What is this resource?"></textarea>
+                    </div>
+                    <button class="btn btn-primary" onclick="addResource()">Add Resource</button>
+                </div>
+
+                <div class="section">
+                    <h4>Resources</h4>
+                    <div id="resourcesList" class="resources-list"></div>
+                </div>
+            </div>
+
+            <!-- APPLICATIONS TAB -->
+            <div id="applications-tab" class="tab-content">
+                <h3>Leadership Applications</h3>
+                
+                <div class="section">
+                    <h4>Applications Received</h4>
+                    <div id="applicationsList" class="applications-list"></div>
+                </div>
+            </div>
+
+            <!-- IMAGES TAB -->
+            <div id="images-tab" class="tab-content">
+                <h3>Manage Images</h3>
+                
+                <div class="section">
+                    <h4>Upload Image</h4>
+                    <div class="form-group">
+                        <label for="imageUpload">Choose Image</label>
+                        <input type="file" id="imageUpload" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label for="imageTitle">Image Title</label>
+                        <input type="text" id="imageTitle" placeholder="Image name">
+                    </div>
+                    <button class="btn btn-primary" onclick="addImage()">Upload Image</button>
+                </div>
+
+                <div class="section">
+                    <h4>Images</h4>
+                    <div id="imagesList" class="images-grid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
